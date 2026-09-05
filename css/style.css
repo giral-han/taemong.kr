@@ -1,43 +1,70 @@
 :root {
-  --pink: #ffe1ec;
-  --lavender: #e6e0ff;
+  --pink-1: #ffd3e6;
+  --pink-2: #ffeef5;
+  --pink-3: #fff8fb;
   --accent: #ff6fa5;
+  --accent-2: #ffb6d0;
   --accent-dark: #e0488a;
-  --text: #3a2e39;
+  --text: #4a2b3a;
+  --text-soft: #8a6b7a;
   --card-bg: #ffffff;
 }
 
 * { box-sizing: border-box; }
 
+::selection { background: var(--accent-2); color: var(--text); }
+
 body {
   margin: 0;
   font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
   color: var(--text);
-  background: linear-gradient(180deg, var(--pink), var(--lavender));
   min-height: 100vh;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.55) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.8), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(255, 214, 235, 0.7), transparent 45%),
+    linear-gradient(160deg, var(--pink-1) 0%, var(--pink-2) 45%, var(--pink-3) 100%);
+  background-size: 22px 22px, auto, auto, auto;
+  background-attachment: fixed, fixed, fixed, fixed;
 }
 
-.site-header { padding: 16px 20px; }
+a { transition: all 0.15s ease; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(6px);
+  border-bottom: 2px dashed var(--accent-2);
+}
 
 .logo {
   font-size: 1.3rem;
   font-weight: 800;
   color: var(--accent-dark);
   text-decoration: none;
+  letter-spacing: 0.02em;
 }
+.logo::before { content: "🌸 "; }
 
 .page-narrow {
   max-width: 480px;
   margin: 0 auto;
-  padding: 12px 20px 40px;
+  padding: 20px 20px 48px;
 }
 
-h1 { font-size: 1.6rem; }
-h2 { font-size: 1.2rem; }
+h1 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+h2 { font-size: 1.2rem; font-weight: 700; }
 
 .btn {
   display: inline-block;
-  padding: 14px 20px;
+  padding: 14px 22px;
   border-radius: 999px;
   border: none;
   font-size: 1rem;
@@ -45,63 +72,122 @@ h2 { font-size: 1.2rem; }
   cursor: pointer;
   text-decoration: none;
   text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
+.btn:active { transform: translateY(0) scale(0.97); }
 
-.btn-primary { background: var(--accent); color: white; }
-.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #ff9bc3);
+  color: white;
+  box-shadow: 0 6px 16px rgba(255, 111, 165, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(255, 111, 165, 0.45);
+}
 
 .btn-secondary {
   background: white;
   color: var(--accent-dark);
-  border: 2px solid var(--accent);
+  border: 2px solid var(--accent-2);
   margin-top: 10px;
+}
+.btn-secondary:hover {
+  background: var(--pink-2);
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .button-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin: 16px 0;
+  margin: 18px 0;
 }
 
 .btn-choice {
   background: var(--card-bg);
-  border: 2px solid transparent;
-  border-radius: 16px;
+  border: 2px solid var(--pink-2);
+  border-radius: 18px;
   padding: 18px 10px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 3px 10px rgba(224, 72, 138, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
-.btn-choice:hover { border-color: var(--accent); }
+.btn-choice:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(255, 111, 165, 0.25);
+}
 
 .progress {
-  min-height: 24px;
+  display: inline-block;
+  min-height: 16px;
   font-weight: 700;
+  font-size: 0.9rem;
   color: var(--accent-dark);
-  margin-bottom: 8px;
+  background: white;
+  border: 2px solid var(--accent-2);
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-bottom: 12px;
+}
+.progress:empty { display: none; }
+
+.step { animation: popIn 0.3s ease; }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .result-card {
-  background: var(--card-bg);
-  border-radius: 20px;
-  padding: 24px;
+  position: relative;
+  background: linear-gradient(180deg, #ffffff, var(--pink-3));
+  border: 3px dashed var(--accent-2);
+  border-radius: 24px;
+  padding: 28px 24px;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 28px rgba(224, 72, 138, 0.18);
 }
+.result-card::before,
+.result-card::after {
+  content: "✨";
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+.result-card::before { top: -12px; left: -6px; }
+.result-card::after { bottom: -12px; right: -6px; }
 
-.result-text { font-size: 1.05rem; line-height: 1.6; }
+.result-text { font-size: 1.05rem; line-height: 1.7; }
 
-.share-row { display: flex; gap: 10px; margin-top: 16px; }
+.share-row { display: flex; gap: 10px; margin-top: 18px; }
 .share-row .btn { flex: 1; }
 
 .taemong-hero { text-align: center; }
-.taemong-emoji { font-size: 4rem; }
+.taemong-emoji {
+  width: 108px;
+  height: 108px;
+  margin: 4px auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  background: radial-gradient(circle, #ffffff, var(--pink-2));
+  border: 3px dashed var(--accent-2);
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(255, 111, 165, 0.25);
+}
 .badge {
   display: inline-block;
   background: white;
+  border: 1px solid var(--accent-2);
   border-radius: 999px;
   padding: 4px 14px;
   font-size: 0.85rem;
+  font-weight: 700;
   color: var(--accent-dark);
 }
 
@@ -112,17 +198,33 @@ h2 { font-size: 1.2rem; }
 .recommend-list a {
   display: block;
   background: white;
-  border-radius: 12px;
+  border: 2px solid var(--pink-2);
+  border-radius: 14px;
   padding: 12px 16px;
   text-decoration: none;
   color: var(--text);
+  font-weight: 600;
+}
+.recommend-list a:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(255, 111, 165, 0.18);
 }
 
-.site-footer { text-align: center; font-size: 0.8rem; color: #7a6b76; padding: 20px; }
+.site-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  padding: 24px 20px;
+  border-top: 2px dashed var(--accent-2);
+  margin-top: 24px;
+}
+.site-footer p::before { content: "🎀 "; }
 
 .intro-buttons { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
 
 @media (min-width: 600px) {
   .page-narrow { max-width: 600px; }
   .intro-buttons { flex-direction: row; justify-content: center; }
+  .button-grid { grid-template-columns: repeat(3, 1fr); }
 }
