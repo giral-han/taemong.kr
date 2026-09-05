@@ -97,6 +97,7 @@ TAEMONG_INDEX_TEMPLATE = """<!doctype html>
 </header>
 <main class="page-narrow">
   <h1>태몽 사전</h1>
+  <a class="btn btn-primary" href="../compatibility.html">💞 궁합 테스트 하러가기</a>
 {sections}
 </main>
 <footer class="site-footer">

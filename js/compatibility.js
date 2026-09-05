@@ -102,8 +102,11 @@ function fallbackCopy(url) {
   input.select();
   input.setSelectionRange(0, url.length);
   try {
-    document.execCommand("copy");
-    alert("링크를 복사했어요!");
+    if (document.execCommand("copy")) {
+      alert("링크를 복사했어요!");
+    } else {
+      alert("자동 복사에 실패했어요. 직접 복사해주세요: " + url);
+    }
   } catch (e) {
     alert("자동 복사에 실패했어요. 직접 복사해주세요: " + url);
   }
