@@ -144,11 +144,37 @@ def write_taemong_pages(taemong):
         f.write(render_taemong_index(groups))
 
 
+def write_sitemap(taemong):
+    urls = [
+        f"{BASE_URL}/index.html",
+        f"{BASE_URL}/compatibility.html",
+        f"{BASE_URL}/taemong/index.html",
+    ]
+    urls += [f"{BASE_URL}/taemong/{item['id']}.html" for item in taemong]
+    body = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{body}\n"
+        "</urlset>\n"
+    )
+    with open(os.path.join(BASE_DIR, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(xml)
+
+
+def write_robots():
+    content = f"User-agent: *\nAllow: /\n\nSitemap: {BASE_URL}/sitemap.xml\n"
+    with open(os.path.join(BASE_DIR, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(content)
+
+
 def main():
     taemong, compat = load_data()
     write_data_js(taemong, compat)
     write_taemong_pages(taemong)
-    print(f"생성 완료: data.js, 태몽 페이지 {len(taemong)}개 + 목록 페이지")
+    write_sitemap(taemong)
+    write_robots()
+    print(f"생성 완료: data.js, 태몽 페이지 {len(taemong)}개, sitemap.xml, robots.txt")
 
 
 if __name__ == "__main__":

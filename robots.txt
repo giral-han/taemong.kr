@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://taemong-gunghap.example.com/sitemap.xml
