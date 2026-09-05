@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>태몽 궁합 테스트 - 태몽궁합</title>
+<meta name="description" content="두 사람의 태몽을 골라 재미로 보는 궁합 테스트. 카테고리에서 태몽을 하나씩 골라보세요.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="index.html" class="logo">태몽궁합</a>
+</header>
+<main class="page-narrow">
+  <h1>태몽 궁합 테스트</h1>
+  <div id="progress" class="progress"></div>
+
+  <section id="step-my-category" class="step">
+    <h2>내 태몽의 카테고리를 골라주세요</h2>
+    <div id="my-category-buttons" class="button-grid"></div>
+  </section>
+
+  <section id="step-my-taemong" class="step" hidden>
+    <h2>내 태몽을 골라주세요</h2>
+    <div id="my-taemong-buttons" class="button-grid"></div>
+    <button type="button" class="btn btn-secondary" data-back="my-category">뒤로가기</button>
+  </section>
+
+  <section id="step-partner-category" class="step" hidden>
+    <h2>상대방 태몽의 카테고리를 골라주세요</h2>
+    <div id="partner-category-buttons" class="button-grid"></div>
+    <button type="button" class="btn btn-secondary" data-back="my-taemong">뒤로가기</button>
+  </section>
+
+  <section id="step-partner-taemong" class="step" hidden>
+    <h2>상대방 태몽을 골라주세요</h2>
+    <div id="partner-taemong-buttons" class="button-grid"></div>
+    <button type="button" class="btn btn-secondary" data-back="partner-category">뒤로가기</button>
+  </section>
+
+  <section id="step-result" class="step" hidden>
+    <div id="result-card" class="result-card"></div>
+    <div class="share-row">
+      <button type="button" id="btn-copy-link" class="btn btn-primary">링크 복사</button>
+      <button type="button" id="btn-share" class="btn btn-primary">공유하기</button>
+    </div>
+    <button type="button" id="btn-restart" class="btn btn-secondary">다시하기</button>
+  </section>
+</main>
+<footer class="site-footer">
+  <p>이 결과는 재미로 봐주세요. 태몽 궁합은 과학적 근거가 없는 엔터테인먼트 콘텐츠입니다.</p>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/match.js"></script>
+<script src="js/compatibility.js"></script>
+</body>
+</html>
