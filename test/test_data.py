@@ -27,7 +27,21 @@ def test_compatibility_count_and_shape():
         assert entry["궁합문구"]
 
 
+def test_tags_covered_by_compatibility():
+    with open(os.path.join(BASE_DIR, "data", "taemong.json"), encoding="utf-8") as f:
+        taemong = json.load(f)
+    with open(os.path.join(BASE_DIR, "data", "compatibility.json"), encoding="utf-8") as f:
+        compat = json.load(f)
+    taemong_tags = {item["태그"] for item in taemong}
+    covered_tags = set()
+    for entry in compat:
+        covered_tags.update(entry["tags"])
+    missing = taemong_tags - covered_tags
+    assert not missing, f"태그가 compatibility.json에 없음: {missing}"
+
+
 if __name__ == "__main__":
     test_taemong_count_and_shape()
     test_compatibility_count_and_shape()
+    test_tags_covered_by_compatibility()
     print("OK: test_data.py")

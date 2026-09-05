@@ -118,12 +118,16 @@ function shareResult(url, text) {
   }
 }
 
+function renderMyTaemongStep(category) {
+  renderTaemongButtons(document.getElementById("my-taemong-buttons"), category, (id) => {
+    state.myId = id;
+    showStep("step-partner-category");
+  });
+}
+
 function initSteps() {
   renderCategoryButtons(document.getElementById("my-category-buttons"), (category) => {
-    renderTaemongButtons(document.getElementById("my-taemong-buttons"), category, (id) => {
-      state.myId = id;
-      showStep("step-partner-category");
-    });
+    renderMyTaemongStep(category);
     showStep("step-my-taemong");
   });
 
@@ -167,6 +171,7 @@ function initFromQuery() {
   }
   if (a && findTaemong(a)) {
     state.myId = a;
+    renderMyTaemongStep(findTaemong(a).카테고리);
     showStep("step-partner-category");
     return true;
   }

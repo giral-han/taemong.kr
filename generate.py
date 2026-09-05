@@ -1,3 +1,4 @@
+import html
 import json
 import os
 from collections import defaultdict
@@ -43,6 +44,10 @@ TAEMONG_PAGE_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{og_url}">
+<meta property="og:type" content="website">
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -80,6 +85,10 @@ TAEMONG_INDEX_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>태몽 사전 - 태몽궁합</title>
 <meta name="description" content="45가지 태몽을 카테고리별로 모아 살펴보는 태몽 사전입니다.">
+<meta property="og:title" content="태몽 사전 - 태몽궁합">
+<meta property="og:description" content="45가지 태몽을 카테고리별로 모아 살펴보는 태몽 사전입니다.">
+<meta property="og:url" content="{og_url}">
+<meta property="og:type" content="website">
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -101,19 +110,21 @@ TAEMONG_INDEX_TEMPLATE = """<!doctype html>
 def render_taemong_page(item, group):
     recs = next_three(item, group)
     rec_html = "\n".join(
-        f'      <li><a href="{r["id"]}.html">{r["이모지"]} {r["이름"]}</a></li>'
+        f'      <li><a href="{html.escape(r["id"])}.html">{r["이모지"]} {html.escape(r["이름"])}</a></li>'
         for r in recs
     )
+    item_id = item["id"]
     return TAEMONG_PAGE_TEMPLATE.format(
-        title=f'{item["이름"]} 태몽 뜻과 의미 - 태몽궁합',
-        description=item["의미설명"],
+        title=html.escape(f'{item["이름"]} 태몽 뜻과 의미 - 태몽궁합'),
+        description=html.escape(item["의미설명"]),
         emoji=item["이모지"],
-        name=item["이름"],
-        category=item["카테고리"],
-        meaning=item["의미설명"],
-        tag=item["태그"],
-        item_id=item["id"],
+        name=html.escape(item["이름"]),
+        category=html.escape(item["카테고리"]),
+        meaning=html.escape(item["의미설명"]),
+        tag=html.escape(item["태그"]),
+        item_id=html.escape(item_id),
         recommend_items=rec_html,
+        og_url=f"{BASE_URL}/taemong/{html.escape(item_id)}.html",
     )
 
 
@@ -122,13 +133,16 @@ def render_taemong_index(groups):
     for category in ["동물", "자연물", "사물"]:
         items = groups.get(category, [])
         lis = "\n".join(
-            f'      <li><a href="{item["id"]}.html">{item["이모지"]} {item["이름"]}</a></li>'
+            f'      <li><a href="{html.escape(item["id"])}.html">{item["이모지"]} {html.escape(item["이름"])}</a></li>'
             for item in items
         )
         sections.append(
-            f'  <section>\n    <h2>{category}</h2>\n    <ul class="recommend-list">\n{lis}\n    </ul>\n  </section>'
+            f'  <section>\n    <h2>{html.escape(category)}</h2>\n    <ul class="recommend-list">\n{lis}\n    </ul>\n  </section>'
         )
-    return TAEMONG_INDEX_TEMPLATE.format(sections="\n".join(sections))
+    return TAEMONG_INDEX_TEMPLATE.format(
+        sections="\n".join(sections),
+        og_url=f"{BASE_URL}/taemong/index.html",
+    )
 
 
 def write_taemong_pages(taemong):
@@ -137,9 +151,9 @@ def write_taemong_pages(taemong):
     os.makedirs(out_dir, exist_ok=True)
     for item in taemong:
         group = groups[item["카테고리"]]
-        html = render_taemong_page(item, group)
+        page_html = render_taemong_page(item, group)
         with open(os.path.join(out_dir, f'{item["id"]}.html'), "w", encoding="utf-8") as f:
-            f.write(html)
+            f.write(page_html)
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(render_taemong_index(groups))
 
@@ -150,7 +164,7 @@ def write_sitemap(taemong):
         f"{BASE_URL}/compatibility.html",
         f"{BASE_URL}/taemong/index.html",
     ]
-    urls += [f"{BASE_URL}/taemong/{item['id']}.html" for item in taemong]
+    urls += [f"{BASE_URL}/taemong/{html.escape(item['id'])}.html" for item in taemong]
     body = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
