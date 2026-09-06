@@ -114,7 +114,7 @@ function fallbackCopy(url) {
 }
 
 function shareResult(url, text) {
-  if (navigator.share && window.isSecureContext) {
+  if (navigator.share && location.protocol !== "file:") {
     navigator.share({ title: "태몽 궁합 결과", text, url }).catch(() => {});
   } else {
     copyLink(url);
