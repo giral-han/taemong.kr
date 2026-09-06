@@ -23,7 +23,7 @@ def test_all_taemong_pages_generated_with_unique_seo_tags():
         assert f'compatibility.html?a={item["id"]}' in html
         titles.add(item["이름"])
 
-    assert len(titles) == 45
+    assert len(titles) == 53
 
     index_path = os.path.join(BASE_DIR, "taemong", "index.html")
     assert os.path.exists(index_path)

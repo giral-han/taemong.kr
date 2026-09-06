@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def test_taemong_count_and_shape():
     with open(os.path.join(BASE_DIR, "data", "taemong.json"), encoding="utf-8") as f:
         data = json.load(f)
-    assert len(data) == 45
+    assert len(data) == 53
     required_keys = {"id", "이름", "카테고리", "의미설명", "태그", "이모지"}
     for item in data:
         assert required_keys.issubset(item.keys())
