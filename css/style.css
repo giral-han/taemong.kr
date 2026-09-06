@@ -6,7 +6,7 @@
   --accent-2: #ffb6d0;
   --accent-dark: #e0488a;
   --text: #4a2b3a;
-  --text-soft: #8a6b7a;
+  --text-soft: #7a5568;
   --card-bg: #ffffff;
 }
 
@@ -19,6 +19,8 @@ body {
   font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
   color: var(--text);
   min-height: 100vh;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   background-image:
     radial-gradient(rgba(255, 255, 255, 0.55) 1.5px, transparent 1.5px),
     radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.8), transparent 40%),
