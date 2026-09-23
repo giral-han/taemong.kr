@@ -56,7 +56,7 @@ TAEMONG_PAGE_TEMPLATE = """<!doctype html>
 </header>
 <main class="page-narrow">
   <div class="taemong-hero">
-    <div class="taemong-emoji">{emoji}</div>
+    <div class="taemong-emoji"><img src="../images/taemong/{item_id}.svg" alt="{name}" width="72" height="72" loading="lazy"></div>
     <h1>{name} 태몽</h1>
     <p class="badge">{category}</p>
   </div>
@@ -73,6 +73,7 @@ TAEMONG_PAGE_TEMPLATE = """<!doctype html>
 </main>
 <footer class="site-footer">
   <p>이 콘텐츠는 재미로 봐주세요. 태몽 해석은 과학적으로 검증된 사실이 아닙니다.</p>
+  <p class="credit">아이콘: <a href="https://twemoji.twitter.com/" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
 </footer>
 </body>
 </html>
@@ -102,6 +103,7 @@ TAEMONG_INDEX_TEMPLATE = """<!doctype html>
 </main>
 <footer class="site-footer">
   <p>이 콘텐츠는 재미로 봐주세요.</p>
+  <p class="credit">아이콘: <a href="https://twemoji.twitter.com/" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
 </footer>
 </body>
 </html>
@@ -111,14 +113,13 @@ TAEMONG_INDEX_TEMPLATE = """<!doctype html>
 def render_taemong_page(item, group):
     recs = next_three(item, group)
     rec_html = "\n".join(
-        f'      <li><a href="{html.escape(r["id"])}.html">{r["이모지"]} {html.escape(r["이름"])}</a></li>'
+        f'      <li><a href="{html.escape(r["id"])}.html"><img class="icon-sm" src="../images/taemong/{html.escape(r["id"])}.svg" alt="" width="24" height="24" loading="lazy"> {html.escape(r["이름"])}</a></li>'
         for r in recs
     )
     item_id = item["id"]
     return TAEMONG_PAGE_TEMPLATE.format(
         title=html.escape(f'{item["이름"]} 태몽 뜻과 의미 - 태몽궁합'),
         description=html.escape(item["의미설명"]),
-        emoji=item["이모지"],
         name=html.escape(item["이름"]),
         category=html.escape(item["카테고리"]),
         meaning=html.escape(item["의미설명"]),
@@ -134,7 +135,7 @@ def render_taemong_index(groups):
     for category in ["동물", "자연물", "사물"]:
         items = groups.get(category, [])
         lis = "\n".join(
-            f'      <li><a href="{html.escape(item["id"])}.html">{item["이모지"]} {html.escape(item["이름"])}</a></li>'
+            f'      <li><a href="{html.escape(item["id"])}.html"><img class="icon-sm" src="../images/taemong/{html.escape(item["id"])}.svg" alt="" width="24" height="24" loading="lazy"> {html.escape(item["이름"])}</a></li>'
             for item in items
         )
         sections.append(

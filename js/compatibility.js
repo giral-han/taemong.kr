@@ -18,18 +18,22 @@ function showStep(stepId) {
   updateProgress();
 }
 
+function progressIcon(item) {
+  return '<img class="icon-xs" src="images/taemong/' + item.id + '.svg" alt="" width="18" height="18" loading="lazy">';
+}
+
 function updateProgress() {
   const progress = document.getElementById("progress");
   const parts = [];
   if (state.myId) {
     const my = findTaemong(state.myId);
-    parts.push("내 태몽: " + my.이모지 + " " + my.이름);
+    parts.push("내 태몽: " + progressIcon(my) + " " + my.이름);
   }
   if (state.partnerId) {
     const partner = findTaemong(state.partnerId);
-    parts.push("상대방 태몽: " + partner.이모지 + " " + partner.이름);
+    parts.push("상대방 태몽: " + progressIcon(partner) + " " + partner.이름);
   }
-  progress.textContent = parts.join("   ");
+  progress.innerHTML = parts.join("   ");
 }
 
 function renderCategoryButtons(container, onPick) {
@@ -50,7 +54,9 @@ function renderTaemongButtons(container, category, onPick) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "btn btn-choice";
-    btn.textContent = item.이모지 + " " + item.이름;
+    btn.innerHTML =
+      '<img class="icon-md" src="images/taemong/' + item.id + '.svg" alt="" width="32" height="32" loading="lazy">' +
+      item.이름;
     btn.addEventListener("click", () => onPick(item.id));
     container.appendChild(btn);
   });
@@ -62,7 +68,12 @@ function renderResult() {
   const match = findCompatibility(my.태그, partner.태그, COMPAT_DATA);
   const card = document.getElementById("result-card");
   card.innerHTML =
-    "<h2>" + my.이모지 + " " + my.이름 + " × " + partner.이모지 + " " + partner.이름 + "</h2>" +
+    '<div class="result-pair">' +
+    '<img class="icon-lg" src="images/taemong/' + my.id + '.svg" alt="' + my.이름 + '" width="64" height="64" loading="lazy">' +
+    '<span class="result-x">×</span>' +
+    '<img class="icon-lg" src="images/taemong/' + partner.id + '.svg" alt="' + partner.이름 + '" width="64" height="64" loading="lazy">' +
+    "</div>" +
+    "<h2>" + my.이름 + " × " + partner.이름 + "</h2>" +
     '<p class="result-text">' + (match ? match.궁합문구 : "아직 준비되지 않은 조합이에요.") + "</p>";
   showStep("step-result");
 

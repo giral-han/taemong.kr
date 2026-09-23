@@ -112,13 +112,18 @@ h2 { font-size: 1.2rem; font-weight: 700; }
   background: var(--card-bg);
   border: 2px solid var(--pink-2);
   border-radius: 18px;
-  padding: 18px 10px;
+  padding: 14px 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 3px 10px rgba(224, 72, 138, 0.08);
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
+.btn-choice img { display: block; }
 .btn-choice:hover {
   border-color: var(--accent);
   transform: translateY(-3px) scale(1.03);
@@ -177,12 +182,26 @@ h2 { font-size: 1.2rem; font-weight: 700; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.2rem;
   background: radial-gradient(circle, #ffffff, var(--pink-2));
   border: 3px dashed var(--accent-2);
   border-radius: 50%;
   box-shadow: 0 8px 20px rgba(255, 111, 165, 0.25);
 }
+.taemong-emoji img { width: 72px; height: 72px; }
+
+.icon-xs { width: 18px; height: 18px; vertical-align: middle; }
+.icon-sm { width: 24px; height: 24px; vertical-align: middle; margin-right: 6px; }
+.icon-md { width: 32px; height: 32px; }
+.icon-lg { width: 64px; height: 64px; }
+
+.result-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.result-x { font-size: 1.3rem; color: var(--accent-dark); font-weight: 800; }
 .badge {
   display: inline-block;
   background: white;
@@ -199,7 +218,9 @@ h2 { font-size: 1.2rem; font-weight: 700; }
 
 .recommend-list { list-style: none; padding: 0; display: grid; gap: 10px; }
 .recommend-list a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: white;
   border: 2px solid var(--pink-2);
   border-radius: 14px;
@@ -222,7 +243,9 @@ h2 { font-size: 1.2rem; font-weight: 700; }
   border-top: 2px dashed var(--accent-2);
   margin-top: 24px;
 }
-.site-footer p::before { content: "🎀 "; }
+.site-footer p:first-child::before { content: "🎀 "; }
+.site-footer .credit { font-size: 0.7rem; margin-top: 6px; }
+.site-footer .credit a { color: var(--text-soft); }
 
 .intro-buttons { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
 
