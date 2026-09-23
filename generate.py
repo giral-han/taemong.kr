@@ -4,7 +4,7 @@ import os
 from collections import defaultdict
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_URL = "https://taemong-gunghap.example.com"
+BASE_URL = "https://www.taemong.kr"
 
 
 def load_data():
