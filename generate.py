@@ -73,7 +73,7 @@ TAEMONG_PAGE_TEMPLATE = """<!doctype html>
 </main>
 <footer class="site-footer">
   <p>이 콘텐츠는 재미로 봐주세요. 태몽 해석은 과학적으로 검증된 사실이 아닙니다.</p>
-  <p class="credit">아이콘: <a href="https://twemoji.twitter.com/" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
+  <p class="credit">아이콘: <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
 </footer>
 </body>
 </html>
@@ -103,7 +103,7 @@ TAEMONG_INDEX_TEMPLATE = """<!doctype html>
 </main>
 <footer class="site-footer">
   <p>이 콘텐츠는 재미로 봐주세요.</p>
-  <p class="credit">아이콘: <a href="https://twemoji.twitter.com/" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
+  <p class="credit">아이콘: <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
 </footer>
 </body>
 </html>
