@@ -1,0 +1,8 @@
+# GitHub Pages(Jekyll) 배포에서 제외할 빌드/테스트 전용 파일
+exclude:
+  - generate.py
+  - download_icons.py
+  - test
+  - data
+  - PRODUCT.md
+  - DESIGN.md

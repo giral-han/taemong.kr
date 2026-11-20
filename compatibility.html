@@ -9,51 +9,90 @@
 <meta property="og:description" content="두 사람의 태몽을 골라 재미로 보는 궁합 테스트. 카테고리에서 태몽을 하나씩 골라보세요.">
 <meta property="og:url" content="https://www.taemong.kr/compatibility.html">
 <meta property="og:type" content="website">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#bfe9da">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header class="site-header">
   <a href="index.html" class="logo">태몽궁합</a>
+  <p id="shared-note" class="header-note" hidden>함께 보고 싶어서<br>보낸 궁합이에요</p>
 </header>
-<main class="page-narrow">
-  <h1>태몽 궁합 테스트</h1>
-  <div id="progress" class="progress"></div>
+<main class="desk">
+  <div class="diary-stack">
+    <article class="diary paper" aria-labelledby="diary-title">
+      <h1 id="diary-title" class="diary-title">우리 둘의 태몽</h1>
+      <div class="slots">
+        <figure id="slot-me" class="slot is-empty" data-impeccable-ignore="nested-cards"></figure>
+        <figure id="slot-partner" class="slot is-empty" data-impeccable-ignore="nested-cards"></figure>
+        <svg id="tie" class="tie" viewBox="0 0 300 52" aria-hidden="true" hidden>
+          <path class="tie-line" pathLength="1" d="M62 4C76 34 106 44 136 29"/>
+          <path class="tie-line" pathLength="1" d="M238 4C224 34 194 44 164 29"/>
+          <path class="tie-heart" d="M150 47C139 39 132 33 132 25C132 19 137 15 142 16C146 17 149 20 150 23C151 20 154 17 158 16C163 15 168 19 168 25C168 33 161 39 150 47Z"/>
+        </svg>
+      </div>
+      <section id="entry" class="entry" hidden></section>
+      <div class="diary-foot">
+        <span id="diary-date" class="diary-date"></span>
+        <span id="diary-brand" class="diary-brand" hidden>taemong.kr</span>
+      </div>
+    </article>
+  </div>
 
-  <section id="step-my-category" class="step">
-    <h2>내 태몽의 카테고리를 골라주세요</h2>
-    <div id="my-category-buttons" class="button-grid"></div>
-  </section>
+  <div class="picker">
+    <section id="step-my" class="step">
+      <div class="step-head">
+        <h2 id="my-heading" tabindex="-1">내 태몽을 골라주세요</h2>
+        <button type="button" class="btn-text" data-random="me" aria-label="몰라요, 아무거나 붙여 볼래요">몰라요</button>
+      </div>
+      <div id="my-tabs" class="sheet-tabs" role="tablist" aria-labelledby="my-heading"></div>
+      <div id="my-sheet" class="sticker-sheet" role="tabpanel"></div>
+    </section>
 
-  <section id="step-my-taemong" class="step" hidden>
-    <h2>내 태몽을 골라주세요</h2>
-    <div id="my-taemong-buttons" class="button-grid"></div>
-    <button type="button" class="btn btn-secondary" data-back="my-category">뒤로가기</button>
-  </section>
+    <section id="step-partner" class="step" hidden>
+      <div class="step-head">
+        <h2 id="partner-heading" tabindex="-1">짝꿍 태몽을 골라주세요</h2>
+        <button type="button" class="btn-text" data-random="partner" aria-label="몰라요, 아무거나 붙여 볼래요">몰라요</button>
+      </div>
+      <div id="partner-tabs" class="sheet-tabs" role="tablist" aria-labelledby="partner-heading"></div>
+      <div id="partner-sheet" class="sticker-sheet" role="tabpanel"></div>
+      <div class="step-links">
+        <button type="button" class="btn-text" data-back>내 태몽 다시 고르기</button>
+      </div>
+    </section>
 
-  <section id="step-partner-category" class="step" hidden>
-    <h2>상대방 태몽의 카테고리를 골라주세요</h2>
-    <div id="partner-category-buttons" class="button-grid"></div>
-    <button type="button" class="btn btn-secondary" data-back="my-taemong">뒤로가기</button>
-  </section>
-
-  <section id="step-partner-taemong" class="step" hidden>
-    <h2>상대방 태몽을 골라주세요</h2>
-    <div id="partner-taemong-buttons" class="button-grid"></div>
-    <button type="button" class="btn btn-secondary" data-back="partner-category">뒤로가기</button>
-  </section>
-
-  <section id="step-result" class="step" hidden>
-    <div id="result-card" class="result-card"></div>
-    <div class="share-row">
-      <button type="button" id="btn-copy-link" class="btn btn-primary">링크 복사</button>
-      <button type="button" id="btn-share" class="btn btn-primary">공유하기</button>
-    </div>
-    <button type="button" id="btn-restart" class="btn btn-secondary">다시하기</button>
-    <a class="btn btn-secondary" href="taemong/index.html">📖 태몽 사전 보러가기</a>
-  </section>
+    <section id="step-result" class="step" hidden>
+      <div id="actions-shared" class="actions" hidden>
+        <div class="cta-dock">
+          <p class="invite">내 태몽은 뭐였을까요?</p>
+          <button type="button" id="btn-start-own" class="btn btn-primary">내 태몽으로 적어보기</button>
+        </div>
+        <div class="action-links">
+          <button type="button" class="btn-text" data-share>공유하기</button>
+          <a class="btn-text" href="taemong/index.html">태몽 사전 보기</a>
+        </div>
+      </div>
+      <label id="share-fallback" class="share-fallback" hidden>
+        <span>자동 복사가 안 돼요. 이 링크를 길게 눌러 복사해 주세요.</span>
+        <input id="share-url" type="text" readonly>
+      </label>
+      <div id="actions-own" class="actions" hidden>
+        <button type="button" class="btn btn-primary" data-share>공유하기</button>
+        <div class="action-links">
+          <button type="button" id="btn-restart" class="btn-text">다시 적기</button>
+          <a class="btn-text" href="taemong/index.html">태몽 사전 보기</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  <p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
 </main>
 <footer class="site-footer">
-  <p>이 결과는 재미로 봐주세요. 태몽 궁합은 과학적 근거가 없는 엔터테인먼트 콘텐츠입니다.</p>
+  <p>태몽 궁합은 재미로 봐주세요. 과학적 근거가 없는 엔터테인먼트 콘텐츠입니다.</p>
   <p class="credit">아이콘: <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">Twemoji</a> (CC-BY 4.0)</p>
 </footer>
 <script src="js/data.js"></script>
